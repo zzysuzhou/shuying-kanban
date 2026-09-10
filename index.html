@@ -226,15 +226,18 @@
   <!-- P0：本期核心汇总 -->
   <section data-kimi-priority="p0" aria-label="本期核心汇总">
     <p class="p0-compact">
-      <output id="cCost">—</output>
-      <span class="c-label" id="cCostLabel">客单成本</span>
+      <output id="cCostLead">—</output>
+      <span class="c-label">线索成本</span>
+      <output id="cCostVisit">—</output>
+      <span class="c-label">到访成本</span>
     </p>
     <div class="kpis">
       <div class="kpi"><span class="k-label">花费</span><output id="kSpend">—</output></div>
       <div class="kpi"><span class="k-label">留资</span><output id="kLeads">—</output></div>
       <div class="kpi"><span class="k-label">来访</span><output id="kVisits">—</output></div>
       <div class="kpi"><span class="k-label">成交</span><output id="kDeals">—</output></div>
-      <div class="kpi kpi-hero"><span class="k-label">客单成本</span><output id="kCost">—</output></div>
+      <div class="kpi kpi-hero"><span class="k-label">线索成本</span><output id="kCostLead">—</output></div>
+      <div class="kpi kpi-hero"><span class="k-label">到访成本</span><output id="kCostVisit">—</output></div>
     </div>
     <p class="period-label" id="periodLabel"></p>
   </section>
@@ -260,7 +263,7 @@
           <tr>
             <th scope="col">项目</th><th scope="col">花费</th><th scope="col">留资</th>
             <th scope="col">来访</th><th scope="col">成交</th>
-            <th scope="col">线索成本</th><th scope="col">客单成本</th>
+            <th scope="col">线索成本</th><th scope="col">到访成本</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -275,8 +278,8 @@
     <div class="controls">
       <div class="chips" id="chChips" role="group" aria-label="选择平台"></div>
       <div class="kimi-glass-segmented" role="radiogroup" aria-label="成本口径" id="metricSeg">
-        <button type="button" class="seg-inner" data-metric="deal" role="radio">客单成本</button>
         <button type="button" class="seg-inner" data-metric="lead" role="radio">线索成本</button>
+        <button type="button" class="seg-inner" data-metric="visit" role="radio">到访成本</button>
       </div>
     </div>
     <div class="chart-box" id="chartBox">
@@ -288,7 +291,7 @@
         <thead>
           <tr>
             <th scope="col">平台</th><th scope="col">花费</th><th scope="col">留资</th>
-            <th scope="col">成交</th><th scope="col">线索成本</th><th scope="col">客单成本</th>
+            <th scope="col">成交</th><th scope="col">线索成本</th><th scope="col">到访成本</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -325,7 +328,7 @@
     </div>
     <textarea id="pasteArea" aria-label="批量粘贴数据" placeholder="批量粘贴：每行一条，列顺序为&#10;日期&#9;项目&#9;平台&#9;花费&#9;留资&#9;来访&#9;成交&#10;例如：2026-09-01&#9;狮山云起&#9;抖音&#9;2300&#9;18&#9;6&#9;1"></textarea>
     <p class="msg" id="msg" role="status"></p>
-    <p class="hint">支持从 Excel 直接复制粘贴（Tab 或逗号分隔，可带表头）。同一天 + 同项目 + 同平台的重复记录会被新值覆盖。周口径为自然周（周一至周日）；客单成本 = 花费 ÷ 成交，线索成本 = 花费 ÷ 留资。数据保存在本看板内，仅本机可见。</p>
+    <p class="hint">支持从 Excel 直接复制粘贴（Tab 或逗号分隔，可带表头）。同一天 + 同项目 + 同平台的重复记录会被新值覆盖。周口径为自然周（周一至周日）；线索成本 = 花费 ÷ 留资，到访成本 = 花费 ÷ 来访。数据保存在本看板内，仅本机可见。</p>
   </section>
 
 </main>
@@ -335,7 +338,7 @@
   "use strict";
 
   /* ---- standalone (web) mode: embedded data + localStorage persistence ---- */
-  var EMBEDDED_INPUT = {"v":1,"dv":2,"records":[{"d":"2026-09-01","p":"狮山云起","ch":"抖音","spend":1176.8,"leads":4,"visits":0,"deals":0},{"d":"2026-09-01","p":"狮山云起","ch":"小红书","spend":694.0,"leads":3,"visits":1,"deals":0},{"d":"2026-09-01","p":"狮山云起","ch":"视频号","spend":416.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-01","p":"非凡居所","ch":"抖音","spend":799.02,"leads":5,"visits":0,"deals":0},{"d":"2026-09-01","p":"非凡居所","ch":"小红书","spend":104.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-01","p":"非凡居所","ch":"视频号","spend":1487.73,"leads":5,"visits":0,"deals":0},{"d":"2026-09-01","p":"禧宸","ch":"抖音","spend":473.36,"leads":6,"visits":1,"deals":0},{"d":"2026-09-01","p":"禧宸","ch":"小红书","spend":103.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-01","p":"禧宸","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-02","p":"狮山云起","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-02","p":"狮山云起","ch":"小红书","spend":880.0,"leads":1,"visits":0,"deals":0},{"d":"2026-09-02","p":"狮山云起","ch":"视频号","spend":839.0,"leads":1,"visits":0,"deals":0},{"d":"2026-09-02","p":"非凡居所","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-02","p":"非凡居所","ch":"小红书","spend":105.0,"leads":1,"visits":0,"deals":0},{"d":"2026-09-02","p":"非凡居所","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-02","p":"禧宸","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-02","p":"禧宸","ch":"小红书","spend":105.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-02","p":"禧宸","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-03","p":"狮山云起","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-03","p":"狮山云起","ch":"小红书","spend":1052.0,"leads":3,"visits":0,"deals":0},{"d":"2026-09-03","p":"狮山云起","ch":"视频号","spend":702.0,"leads":3,"visits":0,"deals":0},{"d":"2026-09-03","p":"非凡居所","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-03","p":"非凡居所","ch":"小红书","spend":60.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-03","p":"非凡居所","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-03","p":"禧宸","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-03","p":"禧宸","ch":"小红书","spend":103.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-03","p":"禧宸","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-04","p":"狮山云起","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-04","p":"狮山云起","ch":"小红书","spend":1238.0,"leads":2,"visits":1,"deals":0},{"d":"2026-09-04","p":"狮山云起","ch":"视频号","spend":289.0,"leads":1,"visits":1,"deals":0},{"d":"2026-09-04","p":"非凡居所","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-04","p":"非凡居所","ch":"小红书","spend":49.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-04","p":"非凡居所","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-04","p":"禧宸","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-04","p":"禧宸","ch":"小红书","spend":87.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-04","p":"禧宸","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-05","p":"狮山云起","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-05","p":"狮山云起","ch":"小红书","spend":546.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-05","p":"狮山云起","ch":"视频号","spend":280.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-05","p":"非凡居所","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-05","p":"非凡居所","ch":"小红书","spend":56.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-05","p":"非凡居所","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-05","p":"禧宸","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-05","p":"禧宸","ch":"小红书","spend":69.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-05","p":"禧宸","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-06","p":"狮山云起","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-06","p":"狮山云起","ch":"小红书","spend":986.0,"leads":2,"visits":0,"deals":0},{"d":"2026-09-06","p":"狮山云起","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-06","p":"非凡居所","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-06","p":"非凡居所","ch":"小红书","spend":82.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-06","p":"非凡居所","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-06","p":"禧宸","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-06","p":"禧宸","ch":"小红书","spend":66.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-06","p":"禧宸","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-07","p":"狮山云起","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-07","p":"狮山云起","ch":"小红书","spend":1057.0,"leads":2,"visits":0,"deals":0},{"d":"2026-09-07","p":"狮山云起","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-07","p":"非凡居所","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-07","p":"非凡居所","ch":"小红书","spend":61.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-07","p":"非凡居所","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-07","p":"禧宸","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-07","p":"禧宸","ch":"小红书","spend":47.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-07","p":"禧宸","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-08","p":"狮山云起","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-08","p":"狮山云起","ch":"小红书","spend":628.0,"leads":1,"visits":1,"deals":0},{"d":"2026-09-08","p":"狮山云起","ch":"视频号","spend":390.0,"leads":1,"visits":1,"deals":0},{"d":"2026-09-08","p":"非凡居所","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-08","p":"非凡居所","ch":"小红书","spend":55.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-08","p":"非凡居所","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-08","p":"禧宸","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-08","p":"禧宸","ch":"小红书","spend":56.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-08","p":"禧宸","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-09","p":"狮山云起","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-09","p":"狮山云起","ch":"小红书","spend":548.0,"leads":2,"visits":0,"deals":0},{"d":"2026-09-09","p":"狮山云起","ch":"视频号","spend":409.0,"leads":3,"visits":0,"deals":0},{"d":"2026-09-09","p":"非凡居所","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-09","p":"非凡居所","ch":"小红书","spend":28.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-09","p":"非凡居所","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-09","p":"禧宸","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-09","p":"禧宸","ch":"小红书","spend":53.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-09","p":"禧宸","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0}],"sample":false,"ui":{"mode":"day","anchor":"2026-09-09","channels":["抖音","小红书","视频号"],"metric":"deal"}};
+  var EMBEDDED_INPUT = {"v":1,"dv":3,"records":[{"d":"2026-09-01","p":"狮山云起","ch":"抖音","spend":1176.8,"leads":4,"visits":0,"deals":0},{"d":"2026-09-01","p":"狮山云起","ch":"小红书","spend":694.0,"leads":3,"visits":1,"deals":0},{"d":"2026-09-01","p":"狮山云起","ch":"视频号","spend":416.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-01","p":"非凡居所","ch":"抖音","spend":799.02,"leads":5,"visits":0,"deals":0},{"d":"2026-09-01","p":"非凡居所","ch":"小红书","spend":104.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-01","p":"非凡居所","ch":"视频号","spend":1487.73,"leads":5,"visits":0,"deals":0},{"d":"2026-09-01","p":"禧宸","ch":"抖音","spend":473.36,"leads":6,"visits":1,"deals":0},{"d":"2026-09-01","p":"禧宸","ch":"小红书","spend":103.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-01","p":"禧宸","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-02","p":"狮山云起","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-02","p":"狮山云起","ch":"小红书","spend":880.0,"leads":1,"visits":0,"deals":0},{"d":"2026-09-02","p":"狮山云起","ch":"视频号","spend":839.0,"leads":1,"visits":0,"deals":0},{"d":"2026-09-02","p":"非凡居所","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-02","p":"非凡居所","ch":"小红书","spend":105.0,"leads":1,"visits":0,"deals":0},{"d":"2026-09-02","p":"非凡居所","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-02","p":"禧宸","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-02","p":"禧宸","ch":"小红书","spend":105.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-02","p":"禧宸","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-03","p":"狮山云起","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-03","p":"狮山云起","ch":"小红书","spend":1052.0,"leads":3,"visits":0,"deals":0},{"d":"2026-09-03","p":"狮山云起","ch":"视频号","spend":702.0,"leads":3,"visits":0,"deals":0},{"d":"2026-09-03","p":"非凡居所","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-03","p":"非凡居所","ch":"小红书","spend":60.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-03","p":"非凡居所","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-03","p":"禧宸","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-03","p":"禧宸","ch":"小红书","spend":103.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-03","p":"禧宸","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-04","p":"狮山云起","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-04","p":"狮山云起","ch":"小红书","spend":1238.0,"leads":2,"visits":1,"deals":0},{"d":"2026-09-04","p":"狮山云起","ch":"视频号","spend":289.0,"leads":1,"visits":1,"deals":0},{"d":"2026-09-04","p":"非凡居所","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-04","p":"非凡居所","ch":"小红书","spend":49.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-04","p":"非凡居所","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-04","p":"禧宸","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-04","p":"禧宸","ch":"小红书","spend":87.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-04","p":"禧宸","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-05","p":"狮山云起","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-05","p":"狮山云起","ch":"小红书","spend":546.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-05","p":"狮山云起","ch":"视频号","spend":280.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-05","p":"非凡居所","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-05","p":"非凡居所","ch":"小红书","spend":56.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-05","p":"非凡居所","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-05","p":"禧宸","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-05","p":"禧宸","ch":"小红书","spend":69.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-05","p":"禧宸","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-06","p":"狮山云起","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-06","p":"狮山云起","ch":"小红书","spend":986.0,"leads":2,"visits":0,"deals":0},{"d":"2026-09-06","p":"狮山云起","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-06","p":"非凡居所","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-06","p":"非凡居所","ch":"小红书","spend":82.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-06","p":"非凡居所","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-06","p":"禧宸","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-06","p":"禧宸","ch":"小红书","spend":66.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-06","p":"禧宸","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-07","p":"狮山云起","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-07","p":"狮山云起","ch":"小红书","spend":1057.0,"leads":2,"visits":0,"deals":0},{"d":"2026-09-07","p":"狮山云起","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-07","p":"非凡居所","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-07","p":"非凡居所","ch":"小红书","spend":61.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-07","p":"非凡居所","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-07","p":"禧宸","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-07","p":"禧宸","ch":"小红书","spend":47.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-07","p":"禧宸","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-08","p":"狮山云起","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-08","p":"狮山云起","ch":"小红书","spend":628.0,"leads":1,"visits":1,"deals":0},{"d":"2026-09-08","p":"狮山云起","ch":"视频号","spend":390.0,"leads":1,"visits":1,"deals":0},{"d":"2026-09-08","p":"非凡居所","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-08","p":"非凡居所","ch":"小红书","spend":55.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-08","p":"非凡居所","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-08","p":"禧宸","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-08","p":"禧宸","ch":"小红书","spend":56.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-08","p":"禧宸","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-09","p":"狮山云起","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-09","p":"狮山云起","ch":"小红书","spend":548.0,"leads":2,"visits":0,"deals":0},{"d":"2026-09-09","p":"狮山云起","ch":"视频号","spend":409.0,"leads":3,"visits":0,"deals":0},{"d":"2026-09-09","p":"非凡居所","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-09","p":"非凡居所","ch":"小红书","spend":28.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-09","p":"非凡居所","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-09","p":"禧宸","ch":"抖音","spend":0.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-09","p":"禧宸","ch":"小红书","spend":53.0,"leads":0,"visits":0,"deals":0},{"d":"2026-09-09","p":"禧宸","ch":"视频号","spend":0.0,"leads":0,"visits":0,"deals":0}],"sample":false,"ui":{"mode":"day","anchor":"2026-09-09","channels":["抖音","小红书","视频号"],"metric":"lead"}};
   var LS_KEY = "shuYingKanban.standalone.v1";
   var EMBEDDED_DV = (typeof EMBEDDED_INPUT !== "undefined" && EMBEDDED_INPUT && EMBEDDED_INPUT.dv) || 0;
 
@@ -351,7 +354,7 @@
     mode: "day",
     anchor: fmtDate(new Date()),
     channels: CHANNELS.slice(),
-    metric: "deal"
+    metric: "lead"
   };
 
   /* ---------------- utils ---------------- */
@@ -422,7 +425,7 @@
           state.mode = ci.ui.mode || "day";
           state.anchor = ci.ui.anchor || state.anchor;
           state.channels = Array.isArray(ci.ui.channels) && ci.ui.channels.length ? ci.ui.channels : CHANNELS.slice();
-          state.metric = ci.ui.metric || "deal";
+          state.metric = ci.ui.metric === "visit" ? "visit" : "lead";
         }
         return true;
       }
@@ -438,7 +441,7 @@
             state.mode = cj.ui.mode || "day";
             state.anchor = cj.ui.anchor || state.anchor;
             state.channels = Array.isArray(cj.ui.channels) && cj.ui.channels.length ? cj.ui.channels : CHANNELS.slice();
-            state.metric = cj.ui.metric || "deal";
+            state.metric = cj.ui.metric === "visit" ? "visit" : "lead";
           }
           return true;
         }
@@ -451,7 +454,7 @@
         state.mode = EMBEDDED_INPUT.ui.mode || "day";
         state.anchor = EMBEDDED_INPUT.ui.anchor || state.anchor;
         state.channels = Array.isArray(EMBEDDED_INPUT.ui.channels) && EMBEDDED_INPUT.ui.channels.length ? EMBEDDED_INPUT.ui.channels : CHANNELS.slice();
-        state.metric = EMBEDDED_INPUT.ui.metric || "deal";
+        state.metric = EMBEDDED_INPUT.ui.metric === "visit" ? "visit" : "lead";
       }
       return true;
     }
@@ -537,7 +540,8 @@
   function render() {
     var agg = aggregate();
     var t = agg.total;
-    var dealCost = t.deals > 0 ? t.spend / t.deals : null;
+    var leadCost = t.leads > 0 ? t.spend / t.leads : null;
+    var visitCost = t.visits > 0 ? t.spend / t.visits : null;
     var hasData = state.records.length > 0;
 
     $("#sampleBadge").hidden = !state.sample;
@@ -547,11 +551,13 @@
     $("#kLeads").textContent = fmtInt(t.leads);
     $("#kVisits").textContent = fmtInt(t.visits);
     $("#kDeals").textContent = fmtInt(t.deals);
-    $("#kCost").textContent = fmtMoney(dealCost);
-    $("#kCost").title = t.deals === 0 ? "当前周期暂无成交，客单成本（花费÷成交）暂无法计算" : "";
+    $("#kCostLead").textContent = fmtMoney(leadCost);
+    $("#kCostLead").title = "线索成本 = 花费 ÷ 留资";
+    $("#kCostVisit").textContent = fmtMoney(visitCost);
+    $("#kCostVisit").title = "到访成本 = 花费 ÷ 来访";
     $("#periodLabel").textContent = "统计周期：" + agg.range.label + (hasData ? "" : "（暂无数据）");
-    $("#cCost").textContent = fmtMoney(dealCost);
-    $("#cCostLabel").textContent = "客单成本 · " + agg.range.label + (t.deals === 0 && t.spend > 0 ? "（周期内暂无成交）" : "");
+    $("#cCostLead").textContent = fmtMoney(leadCost);
+    $("#cCostVisit").textContent = fmtMoney(visitCost);
 
     /* mode segmented */
     Array.prototype.forEach.call($("#modeSeg").children, function (b) {
@@ -574,7 +580,7 @@
         "<td>" + p + "</td><td>" + fmtMoney(v.spend) + "</td><td>" + fmtInt(v.leads) + "</td>" +
         "<td>" + fmtInt(v.visits) + "</td><td>" + fmtInt(v.deals) + "</td>" +
         "<td>" + (v.leads ? fmtMoney(v.spend / v.leads) : "—") + "</td>" +
-        "<td>" + (v.deals ? fmtMoney(v.spend / v.deals) : "—") + "</td>";
+        "<td>" + (v.visits ? fmtMoney(v.spend / v.visits) : "—") + "</td>";
       tbody.appendChild(tr);
     });
     var trT = document.createElement("tr");
@@ -583,7 +589,7 @@
       "<td>合计</td><td>" + fmtMoney(t.spend) + "</td><td>" + fmtInt(t.leads) + "</td>" +
       "<td>" + fmtInt(t.visits) + "</td><td>" + fmtInt(t.deals) + "</td>" +
       "<td>" + (t.leads ? fmtMoney(t.spend / t.leads) : "—") + "</td>" +
-      "<td>" + (t.deals ? fmtMoney(t.spend / t.deals) : "—") + "</td>";
+      "<td>" + (t.visits ? fmtMoney(t.spend / t.visits) : "—") + "</td>";
     tbody.appendChild(trT);
     $("#tableEmpty").hidden = hasData;
     $("#projectTable").style.display = hasData ? "" : "none";
@@ -617,7 +623,7 @@
         "<td><span class='dot' style='background:" + CH_COLOR[c] + "'></span>" + c + "</td>" +
         "<td>" + fmtMoney(v.spend) + "</td><td>" + fmtInt(v.leads) + "</td><td>" + fmtInt(v.deals) + "</td>" +
         "<td>" + (v.leads ? fmtMoney(v.spend / v.leads) : "—") + "</td>" +
-        "<td>" + (v.deals ? fmtMoney(v.spend / v.deals) : "—") + "</td>";
+        "<td>" + (v.visits ? fmtMoney(v.spend / v.visits) : "—") + "</td>";
       ctbody.appendChild(tr);
     });
 
@@ -652,7 +658,7 @@
         var s = 0, denom = 0;
         sel.forEach(function (c) {
           s += day.perCh[c].spend;
-          denom += metric === "deal" ? day.perCh[c].deals : day.perCh[c].leads;
+          denom += metric === "visit" ? day.perCh[c].visits : day.perCh[c].leads;
         });
         day._spend = s;
         day._cost = denom > 0 ? s / denom : null;
@@ -662,11 +668,12 @@
     }
     var effMetric = state.metric, fellBack = false;
     computeCosts(effMetric);
-    if (effMetric === "deal" && maxCost === 0) {
-      var anyLeads = data.some(function (day) {
-        return sel.some(function (c) { return day.perCh[c].leads > 0; });
+    if (maxCost === 0) {
+      var other = effMetric === "lead" ? "visit" : "lead";
+      var anyOther = data.some(function (day) {
+        return sel.some(function (c) { return (other === "visit" ? day.perCh[c].visits : day.perCh[c].leads) > 0; });
       });
-      if (anyLeads) { effMetric = "lead"; fellBack = true; computeCosts(effMetric); }
+      if (anyOther) { effMetric = other; fellBack = true; computeCosts(effMetric); }
     }
     var ySpend = niceCeil(maxSpend), yCost = niceCeil(maxCost);
 
@@ -725,12 +732,12 @@
     if (lastIdx >= 0) {
       var ly = Math.min(Math.max(py(data[lastIdx]._cost) - 6, mt + 4), mt + ih - 4);
       svg.appendChild(el("text", { x: Math.min(px(lastIdx), ml + iw - 2), y: ly, "text-anchor": "end", "class": "end-label" },
-        (effMetric === "deal" ? "客单 " : "线索 ") + fmtMoney(data[lastIdx]._cost)));
+        (effMetric === "lead" ? "线索 " : "到访 ") + fmtMoney(data[lastIdx]._cost)));
     }
 
     /* note */
     var peakTxt = maxSpend > 0 ? "日花费峰值 " + fmtMoney(ySpend) : "近 14 天暂无花费记录";
-    $("#chartNote").textContent = "柱：每日花费（按平台堆叠）｜线：" + (effMetric === "deal" ? "客单成本（花费÷成交）" : "线索成本（花费÷留资）" + (fellBack ? "·周期内无成交已自动切换" : "")) + "，右轴｜" + peakTxt;
+    $("#chartNote").textContent = "柱：每日花费（按平台堆叠）｜线：" + (effMetric === "lead" ? "线索成本（花费÷留资）" : "到访成本（花费÷来访）") + (fellBack ? "·所选口径无数据已自动切换" : "") + "，右轴｜" + peakTxt;
   }
 
   /* ---------------- data actions ---------------- */
