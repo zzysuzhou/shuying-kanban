@@ -294,7 +294,7 @@
         <thead>
           <tr>
             <th scope="col">平台</th><th scope="col">花费</th><th scope="col">留资</th>
-            <th scope="col">成交</th><th scope="col">线索成本</th><th scope="col" class="visit-col">到访成本</th>
+            <th scope="col">来访</th><th scope="col">成交</th><th scope="col">线索成本</th><th scope="col" class="visit-col">到访成本</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -626,7 +626,8 @@
       var tr = document.createElement("tr");
       tr.innerHTML =
         "<td><span class='dot' style='background:" + CH_COLOR[c] + "'></span>" + c + "</td>" +
-        "<td>" + fmtMoney(v.spend) + "</td><td>" + fmtInt(v.leads) + "</td><td>" + fmtInt(v.deals) + "</td>" +
+        "<td>" + fmtMoney(v.spend) + "</td><td>" + fmtInt(v.leads) + "</td>" +
+        "<td>" + fmtInt(v.visits) + "</td><td>" + fmtInt(v.deals) + "</td>" +
         "<td>" + (v.leads ? fmtMoney(v.spend / v.leads) : "—") + "</td>" +
         "<td class=\"visit-col\">" + (v.visits ? fmtMoney(v.spend / v.visits) : "—") + "</td>";
       ctbody.appendChild(tr);
